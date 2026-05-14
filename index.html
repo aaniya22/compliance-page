@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simplifying Compliance For Research Analysts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #4361ee;
+      --blue-light: #4dabf7;
+      --blue-dark: #1971c2;
+      --text-dark: #1a1a2e;
+      --text-mid: #333;
+      --text-muted: #555;
+      --bg: #f5f7ff;
+      --white: #ffffff;
+      --accent: #4361ee;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #e8eaf0;
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon svg { width: 18px; height: 18px; fill: white; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .nav-links a.active { color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+
+    .btn-nav {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 9px 22px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-nav:hover { background: var(--blue-dark); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--white);
+      padding: 72px 5% 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span { color: var(--accent); }
+
+    .hero-text p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-checklist {
+      list-style: none;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .check-icon svg { width: 11px; height: 11px; stroke: white; stroke-width: 2.5; fill: none; }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--blue-dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--accent); color: white; }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      background: #e8edff;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero-illustration {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* Rating card */
+    .rating-card {
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background: white;
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+      z-index: 2;
+      min-width: 140px;
+    }
+
+    .rating-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .stars { color: #f59f00; font-size: 0.85rem; letter-spacing: 2px; }
+
+    .rating-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Trust badge */
+    .trust-card {
+      position: absolute;
+      left: 0;
+      bottom: 40px;
+      background: white;
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: #e8edff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trust-num { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+    .trust-label { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* Decorative arrows */
+    .arrows-top, .arrows-bottom {
+      position: absolute;
+      display: flex;
+      gap: 4px;
+      opacity: 0.35;
+    }
+
+    .arrows-top { top: 10px; left: 60px; }
+    .arrows-bottom { bottom: 10px; right: 60px; }
+
+    .arrow-chevron {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+    }
+
+    /* ── SECTION 2: WHY COMPLIANCE MATTERS ── */
+    .why-section {
+      background: var(--bg);
+      padding: 80px 5%;
+    }
+
+    .why-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .why-left h2 {
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+    }
+
+    .why-left h2 span { color: var(--accent); }
+
+    .why-left p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    /* Illustration for section 2 */
+    .why-illustration {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Feature list */
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-icon.blue { background: #dbe4ff; }
+    .feature-icon.teal { background: #c3fae8; }
+    .feature-icon.navy { background: #d0ebff; }
+
+    .feature-icon svg { width: 22px; height: 22px; }
+
+    .feature-text h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .feature-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a1a2e;
+      color: #ccc;
+      text-align: center;
+      padding: 28px 5%;
+      font-size: 0.82rem;
+    }
+
+    footer a { color: var(--blue-light); text-decoration: none; }
+
+    /* ── MOBILE NAV DRAWER ── */
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 1px solid #e8eaf0;
+      padding: 20px 5%;
+      gap: 20px;
+      z-index: 99;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { text-decoration: none; color: var(--text-mid); font-weight: 500; font-size: 0.95rem; }
+    .mobile-nav .btn-nav { text-align: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero { padding: 56px 5% 48px; gap: 32px; }
+      .hero-bg-circle { width: 340px; height: 340px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 4%; }
+      .nav-links, .btn-nav { display: none; }
+      .hamburger { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 40px 4% 48px;
+        gap: 48px;
+        text-align: center;
+      }
+
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-checklist { align-items: flex-start; max-width: 320px; margin-left: auto; margin-right: auto; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-bg-circle { width: 260px; height: 260px; }
+      .rating-card { right: 10px; top: 10px; }
+      .trust-card { left: 10px; bottom: 20px; }
+
+      .why-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .why-left { order: 1; }
+      .why-right { order: 0; display: flex; justify-content: center; }
+      .feature-item { text-align: left; }
+      .why-illustration { max-width: 280px; }
+    }
+
+    @media (max-width: 375px) {
+      .hero-text h1 { font-size: 1.75rem; }
+      .why-left h2 { font-size: 1.5rem; }
+      .btn-primary, .btn-outline { padding: 10px 20px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    Logo
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Our Services</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+
+  <a class="btn-nav" href="#">Contact Us</a>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#">Home</a>
+  <a href="#">About Us</a>
+  <a href="#">Our Services</a>
+  <a href="#">Pricing</a>
+  <a href="#">FAQ</a>
+  <a href="#">Contact</a>
+  <a class="btn-nav" href="#">Contact Us</a>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Simplifying <span>Compliance</span> For<br>Research Analysts</h1>
+    <p>Stay Focused On Your Insights — We'll Handle The Compliance. Our Expert Solutions Ensure Your Research Practices Meet Every Regulatory Requirement With Confidence And Ease.</p>
+    <ul class="hero-checklist">
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+        </span>
+        End-To-End Compliance Support
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+        </span>
+        Regulatory Filings Made Simple
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+        </span>
+        Tailored Solutions For Independent Analysts &amp; Firms
+      </li>
+    </ul>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#">Get Started</a>
+      <a class="btn-outline" href="#">Book A Consultation</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-bg-circle"></div>
+
+    <div class="arrows-top">
+      <div class="arrow-chevron"></div><div class="arrow-chevron"></div>
+      <div class="arrow-chevron"></div><div class="arrow-chevron"></div>
+      <div class="arrow-chevron"></div><div class="arrow-chevron"></div>
+      <div class="arrow-chevron"></div>
+    </div>
+
+    <!-- Hero SVG illustration -->
+    <svg class="hero-illustration" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- Person standing with laptop -->
+      <!-- Body -->
+      <ellipse cx="240" cy="340" rx="50" ry="12" fill="#dde3ff" opacity="0.5"/>
+      <!-- Legs -->
+      <rect x="225" y="295" width="14" height="52" rx="7" fill="#2d3a8c"/>
+      <rect x="245" y="295" width="14" height="52" rx="7" fill="#2d3a8c"/>
+      <!-- Shoes -->
+      <ellipse cx="232" cy="347" rx="14" ry="6" fill="#1a1a2e"/>
+      <ellipse cx="252" cy="347" rx="14" ry="6" fill="#1a1a2e"/>
+      <!-- Torso -->
+      <rect x="213" y="210" width="58" height="90" rx="14" fill="#4361ee"/>
+      <!-- Head -->
+      <circle cx="242" cy="190" r="30" fill="#f5c4a1"/>
+      <!-- Hair -->
+      <path d="M215 180 Q220 155 242 155 Q264 155 270 175 Q260 160 242 162 Q224 162 218 178 Z" fill="#1a1a2e"/>
+      <!-- Arms -->
+      <path d="M213 225 Q190 235 178 260" stroke="#4361ee" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M271 225 Q290 235 295 255" stroke="#4361ee" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <!-- Laptop in hand -->
+      <rect x="155" y="245" width="80" height="52" rx="6" fill="#dde3ff"/>
+      <rect x="158" y="248" width="74" height="42" rx="4" fill="#c5cbf7"/>
+      <!-- Laptop screen lines -->
+      <line x1="164" y1="257" x2="226" y2="257" stroke="#8896f0" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="164" y1="265" x2="210" y2="265" stroke="#8896f0" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="164" y1="273" x2="220" y2="273" stroke="#8896f0" stroke-width="2" stroke-dasharray="4,3"/>
+      <!-- Laptop base -->
+      <rect x="148" y="297" width="94" height="8" rx="4" fill="#b5bef5"/>
+      <!-- Briefcase (bottom right) -->
+      <rect x="310" y="290" width="70" height="52" rx="8" fill="#dde3ff"/>
+      <rect x="328" y="282" width="34" height="14" rx="5" fill="#c5cbf7" stroke="#b5bef5" stroke-width="1.5"/>
+      <line x1="310" y1="316" x2="380" y2="316" stroke="#b5bef5" stroke-width="2"/>
+      <rect x="338" y="310" width="14" height="12" rx="3" fill="#8896f0"/>
+    </svg>
+
+    <div class="rating-card">
+      <div class="rating-num">4.8</div>
+      <div class="stars">★★★★★</div>
+      <div class="rating-label">Clients Rating</div>
+    </div>
+
+    <div class="trust-card">
+      <div class="trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-4 0v2"/>
+          <path d="M12 12v4"/>
+          <circle cx="12" cy="12" r="1" fill="#4361ee"/>
+        </svg>
+      </div>
+      <div>
+        <div class="trust-num">250+</div>
+        <div class="trust-label">Trusted By<br>Professionals</div>
+      </div>
+    </div>
+
+    <div class="arrows-bottom">
+      <div class="arrow-chevron"></div><div class="arrow-chevron"></div>
+      <div class="arrow-chevron"></div><div class="arrow-chevron"></div>
+      <div class="arrow-chevron"></div><div class="arrow-chevron"></div>
+      <div class="arrow-chevron"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY COMPLIANCE MATTERS SECTION -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-left">
+      <h2>Why <span>Compliance Matters</span><br>For Research Analysts</h2>
+      <p>In Today's Regulatory Environment, Even A Small Oversight Can Lead To Penalties, Reputational Risks, And Loss Of Client Trust. We Help Research Analysts And Firms Navigate Complex Compliance Requirements So They Can Focus On Delivering High-Quality Research Without Worry.</p>
+
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Regulatory Clarity</h3>
+            <p>We Decode Complex Compliance Rules Into Simple, Actionable Steps.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0ca678" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Hassle-Free Filings Clarity</h3>
+            <p>From Registration To Ongoing Reporting — We Manage It End-To-End.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1971c2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Risk Protection</h3>
+            <p>Stay Ahead Of Audits, Inspections, And Compliance Gaps With Proactive Support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-right">
+      <!-- Section 2 illustration -->
+      <svg class="why-illustration" viewBox="0 0 380 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background decorative circle -->
+        <circle cx="190" cy="175" r="155" fill="#e8edff" opacity="0.5"/>
+
+        <!-- Desk / ground shape -->
+        <ellipse cx="190" cy="330" rx="140" ry="18" fill="#dde3ff" opacity="0.6"/>
+
+        <!-- Bar chart on stand -->
+        <rect x="40" y="120" width="150" height="180" rx="10" fill="white" stroke="#c5cbf7" stroke-width="1.5"/>
+        <!-- Chart bars -->
+        <rect x="60" y="220" width="20" height="60" rx="3" fill="#c5cbf7"/>
+        <rect x="90" y="185" width="20" height="95" rx="3" fill="#4361ee"/>
+        <rect x="120" y="200" width="20" height="80" rx="3" fill="#c5cbf7"/>
+        <rect x="150" y="165" width="20" height="115" rx="3" fill="#4361ee"/>
+        <!-- Chart label -->
+        <text x="95" y="145" font-family="Roboto,sans-serif" font-size="9" fill="#888" text-anchor="middle">50 / 100</text>
+        <!-- Axis lines -->
+        <line x1="55" y1="283" x2="178" y2="283" stroke="#e0e0e0" stroke-width="1"/>
+        <line x1="55" y1="120" x2="55" y2="283" stroke="#e0e0e0" stroke-width="1"/>
+        <!-- Stand -->
+        <rect x="105" y="300" width="8" height="30" fill="#c5cbf7"/>
+        <rect x="80" y="328" width="60" height="6" rx="3" fill="#b5bef5"/>
+
+        <!-- Sitting person -->
+        <!-- Bean bag / seat -->
+        <ellipse cx="270" cy="300" rx="60" ry="35" fill="#4361ee" opacity="0.2"/>
+        <ellipse cx="270" cy="295" rx="50" ry="28" fill="#dde3ff"/>
+        <!-- Plant beside -->
+        <rect x="320" y="285" width="14" height="40" rx="3" fill="#a0d4b0"/>
+        <ellipse cx="327" cy="278" rx="18" ry="18" fill="#69c68a"/>
+        <ellipse cx="318" cy="271" rx="12" ry="12" fill="#52b870"/>
+        <ellipse cx="336" cy="271" rx="12" ry="12" fill="#52b870"/>
+        <!-- Person body -->
+        <rect x="248" y="238" width="44" height="60" rx="12" fill="#4361ee"/>
+        <!-- Person head -->
+        <circle cx="270" cy="218" r="24" fill="#f5c4a1"/>
+        <!-- Hair -->
+        <path d="M248 212 Q252 192 270 190 Q288 190 292 208 Q284 196 270 198 Q256 198 252 210 Z" fill="#1a1a2e"/>
+        <!-- Legs (crossed/sitting) -->
+        <path d="M250 298 Q240 315 228 318" stroke="#2d3a8c" stroke-width="12" stroke-linecap="round" fill="none"/>
+        <path d="M290 298 Q298 315 305 318" stroke="#2d3a8c" stroke-width="12" stroke-linecap="round" fill="none"/>
+        <!-- Laptop on lap -->
+        <rect x="238" y="262" width="64" height="42" rx="5" fill="#dde3ff"/>
+        <rect x="241" y="265" width="58" height="33" rx="3" fill="#b5bef5"/>
+        <line x1="247" y1="273" x2="293" y2="273" stroke="#8896f0" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="247" y1="280" x2="283" y2="280" stroke="#8896f0" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="247" y1="287" x2="288" y2="287" stroke="#8896f0" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <rect x="232" y="303" width="76" height="7" rx="3" fill="#c5cbf7"/>
+
+        <!-- Decorative chevrons bottom -->
+        <g opacity="0.3">
+          <polyline points="50,345 56,339 62,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="63,345 69,339 75,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="76,345 82,339 88,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="89,345 95,339 101,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="102,345 108,339 114,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="115,345 121,339 127,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="128,345 134,339 140,345" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 ComplianceEase. All rights reserved. &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms of Service</a></p>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
